@@ -1,0 +1,65 @@
+.container{
+    display: flex;
+    padding: 20px;
+    max-width: 97%;
+    margin: auto;
+    margin-top: 20px;
+}
+
+.album-info{
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+
+    background-color: #cecece;
+    border-radius: 20px;
+}
+.album-info h1{
+    font-size: 60px;
+    margin-bottom: 0px;
+}
+.album-info img {
+    border-radius: 20px;
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+}
+.texto-info{
+    flex-direction: column;
+}
+
+.faixas-container{
+    display: flex;
+    padding: 20px;
+    max-width: 97%;
+    margin: auto;
+    margin: 20px;
+
+    flex-direction: column;
+
+    background-color: #cecece;
+    border-radius: 20px;
+}
+.faixa-btn{
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    cursor: pointer;
+}
+.faixa-btn:hover{
+    background-color: rgb(151, 151, 151);
+    border-radius: 20px;
+}
+.play-btn{
+    background-color: coral;
+    border-radius: 100%;
+
+    width: 70px;
+    height: 70px;
+}
+.faixa-img{
+    width: 80px;
+    height: 80px;
+    border-radius: 10px;
+    object-fit: cover;
+}
