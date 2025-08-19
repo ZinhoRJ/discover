@@ -1,12 +1,9 @@
 <?php
-
-
 //VERIFICAR SE O USUÁRIO ESTÁ LOGADO ANTES DE EXIBIR A PÁGINA, ELE SÓ PODERÁ FAZER UPLOAD CASO ESTEJA LOGADO EM UMA CONTA
 if (!isset($_COOKIE['username']) && !isset($_COOKIE['user_id'])) { //caso os cookies 'username' e 'id' não estejam definidos (isset = is set, e o "!" é de negação. Então: "!isset" = "não definido")
     echo ("Você não está logado. <br><br> <a href='login.php'>Fazer Login</a>");
     die();
 }
-
 
 // Conectar ao banco de dados
 $conn = new mysqli("localhost", "root", "", "fecip");
@@ -42,13 +39,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         move_uploaded_file($_FILES['imagem_capa']['tmp_name'], $caminhoImagem);
     }
 
-    // Enviar o álbum ao banco
+    // Enviar o >álbum< ao banco
     $stmt = $conn->prepare("INSERT INTO albuns (nome_album, id_usuario, genero, ano, descricao, capa_album) VALUES (?, ?, ?, ?, ?, ?)");
     $stmt->bind_param("sisiss", $nomeAlbum, $idUsuario, $genero, $ano, $descricao, $caminhoImagem);
     $stmt->execute();
-    $idAlbum = $stmt->insert_id;
+    $idAlbum = $stmt->insert_id; //salva o ID do novo registro, assim que ele foi enviado ao banco de dados!
 
-    // insere faixas do álbum com o idAlbum correto
+    // insere >faixas< do álbum com o idAlbum correto
     if (isset($_POST['nome_musica']) && isset($_FILES['audio'])) {
         foreach ($_POST['nome_musica'] as $i => $nomeMusica) {
             if (!empty($nomeMusica) && isset($_FILES['audio']['name'][$i])) {
@@ -231,7 +228,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
     <br>
-    <a href="./player.php"><b>SAIR</b></a>
+    <a href="./discover.php"><b>SAIR</b></a>
 
     <style>
         .btnType{

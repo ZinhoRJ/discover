@@ -1,25 +1,28 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f5f5f5; }
-        form { background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); }
-        input { display: block; width: 100%; margin-bottom: 15px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
-        button { background: #007BFF; color: #fff; border: none; padding: 10px; border-radius: 5px; cursor: pointer; }
-        button:hover { background: #0056b3; }
-    </style>
+    <title>Fazer Login</title>
+
+    <link rel="stylesheet" href="./css/login.css">
 </head>
+
 <body>
+    <h1>discover</h1>
+
     <form action="login.php" method="POST">
-        <h2>Login</h2>
-        <input type="text" name="username" placeholder="Nome de Usuário" required>
+        <h3>Fazer Login</h3>
+        <br>
+        <br>
+        <input type="text" name="username" placeholder="E-mail" required>
         <input type="password" name="password" placeholder="Senha" required>
+        <br>
         <button type="submit">Entrar</button>
     </form>
 </body>
+
 </html>
 
 <?php
@@ -51,6 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { //verifica se o método é POST, e s
             //SALVANDO O LOGIN NOS COOKIES PARA SER USADO EM OUTRAS PÁGINAS
             setcookie("username", $user['nome'], time() + (86400 * 7), "/", "", true, true); //nome de usuário 
             setcookie("user_id", $user['id'], time() + (86400 * 7), "/"); //id do usuário
+            setcookie("pass", $user['senha'], time() + (86400 * 7), "/", "", true, true); //nome de usuário 
 
             
             echo "<p>Login bem-sucedido! Bem-vindo, " . htmlspecialchars($user['nome']) . ".</p>"; //a função htmlspecialchars() serve pra impedir ataques de Cross-Site Scripting, n sei como funciona mas sei lá, melhor evitar.
@@ -66,8 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { //verifica se o método é POST, e s
     $stmt->close(); //fecha a query preparada com o hash
     $conn->close(); //fecha qualquer conexão com o banco de dados
 
-    echo '<meta http-equiv="refresh" content="2; url=./player.php">'; //esse 'meta' faz o redirecionamento em um tempo personalizado, diferente do 'header' que faz no mesmo instante
+    echo '<meta http-equiv="refresh" content="2; url=./discover.php">'; //esse 'meta' faz o redirecionamento em um tempo personalizado, diferente do 'header' que faz no mesmo instante
     exit();
 }
 ?>
-<!-- agora eu gostaria de fazer um formulário para enviar uma música nos formatos mais comuns (mp3, ogg, flac), uma imagem (png ou jpg), título da música, nome do artista, id do usuário que fez upload -->

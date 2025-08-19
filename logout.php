@@ -46,6 +46,8 @@ echo "<H1>Você saiu com sucesso.</H1>";
 
 <?php
 //redirecionar para a tela inicial (player.php)
-echo '<meta http-equiv="refresh" content="5; url=./player.php">'; //esse 'meta' faz o redirecionamento em um tempo personalizado, diferente do 'header' que faz no mesmo instante
+//echo '<meta http-equiv="refresh" content="5; url=./index.php">'; //esse 'meta' faz o redirecionamento em um tempo personalizado, diferente do 'header' que faz no mesmo instante
+
+header("Location: index.php");
 exit();
 ?>

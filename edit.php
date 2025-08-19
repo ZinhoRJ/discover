@@ -5,7 +5,7 @@ if ($conn->connect_error) {
     die("Erro na conexão com o banco de dados: " . $conn->connect_error);
 }
 
-$result = $conn->query("SELECT * FROM musicas");
+$result = $conn->query("SELECT * FROM albuns");
 ?>
 
 <html lang="pt-BR">
@@ -20,21 +20,26 @@ $result = $conn->query("SELECT * FROM musicas");
 </style>
 
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar</title>
 </head>
 
 <body>
+    <marquee scrollamount="30">
+        REDUZA A VELOCIDADE, TRECHO EM OBRAS ||
+        REDUZA A VELOCIDADE, TRECHO EM OBRAS || 
+        REDUZA A VELOCIDADE, TRECHO EM OBRAS ||
+        REDUZA A VELOCIDADE, TRECHO EM OBRAS ||
+    </marquee>
     <h1>EDITAR MÚSICA</h1>
 
-    <label for="msc" style="font-size: large">ID DA MÚSICA: </label>
+    <label for="msc" style="font-size: large">ALBUM: </label>
     
     <select name="msc" id="musica" onchange="atualizarInfo()">
         <?php
         while($row = $result -> fetch_assoc())
-            echo "<option value='" . $row['id'] . "'>" . $row['nome_musica'] . "</option>";
+            echo "<option value='" . $row['id'] . "'>" . $row['nome_album'] . "</option>";
         ?>
     </select>
 
