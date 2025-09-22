@@ -8,10 +8,10 @@
 </picture>
 
 
-# **Connections: Sparks**
+# **Discover**
 Plataforma de distribuição de músicas para artistas indepentendes. Publique suas criações e interaja com fãs e outros criadores. Projeto de ciências escolar.
 
-discover.infinityfreeapp.com
+Prévia online disponível [aqui](discover.infinityfreeapp.com).
   
 ### 🛠️ Feito Com
 PHP, HTML, CSS, JavaScript e biblioteca [GetID3](https://github.com/JamesHeinrich/getID3).
