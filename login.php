@@ -10,13 +10,14 @@
 </head>
 
 <body>
-    <h1>discover</h1>
+    <img src="./svg/logo.png" alt="Logotipo do site">
+    
 
     <form action="login.php" method="POST">
         <h3>Fazer Login</h3>
         <br>
         <br>
-        <input type="text" name="username" placeholder="E-mail" required>
+        <input type="text" name="email" placeholder="email" required>
         <input type="password" name="password" placeholder="Senha" required>
         <br>
         <button type="submit">Entrar</button>
@@ -27,21 +28,16 @@
 
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") { //verifica se o método é POST, e só executa o código depois do envio do formulário (quando o método for POST)
-    $username = $_POST['username']; //salva na variável $username o conteúdo do html nomeado como 'username'
+    $email = $_POST['email']; //salva na variável $email o conteúdo do html nomeado como 'email'
     $password = $_POST['password']; //vai salvar na variável $password onde no html estiver nomeado como 'password' (é a mesma coisa do de cima, só mudei a explicação)
 
     // Conexão com o banco de dados
-    $conn = new mysqli("localhost", "root", "", "fecip");
-
-    // Verificar conexão
-    if ($conn->connect_error) {
-        die("Falha na conexão: " . $conn->connect_error);
-    }
+    include './config.php'; //inclui o arquivo que tem a conexão com o banco de dados
 
     // Consultar usuário no banco de dados
-    $sql = "SELECT * FROM usuarios WHERE nome = ?"; //O "?" serve como placeholder pra evitar SQL Injection
+    $sql = "SELECT * FROM usuarios WHERE email = ?"; //O "?" serve como placeholder pra evitar SQL Injection
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $username); //vai substituir o ? pela variável $username, o "s" define como uma string (parecido com a linguagem C)
+    $stmt->bind_param("s", $email); //vai substituir o ? pela variável $email, o "s" define como uma string (parecido com a linguagem C)
     $stmt->execute(); //executa a consulta SQL (query) depois de subsituir o ? pela variável
     $result = $stmt->get_result(); //vai pegar o resultado daquela query, usar a função get_result() para organizar os dados e então salvar na variável $result.
 
@@ -70,7 +66,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { //verifica se o método é POST, e s
     $stmt->close(); //fecha a query preparada com o hash
     $conn->close(); //fecha qualquer conexão com o banco de dados
 
-    echo '<meta http-equiv="refresh" content="2; url=./discover.php">'; //esse 'meta' faz o redirecionamento em um tempo personalizado, diferente do 'header' que faz no mesmo instante
+    //echo '<meta http-equiv="refresh" content="2; url=./discover.php">'; //esse 'meta' faz o redirecionamento em um tempo personalizado, diferente do 'header' que faz no mesmo instante
+    header("Location: index.php");
     exit();
 }
 ?>

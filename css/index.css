@@ -1,31 +1,73 @@
+/* Garante que o body ocupe toda a altura da tela e não tenha rolagem */
+.monotone-regular {
+  font-family: "Monoton", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+
+  font-size: 3rem;
+  margin: auto;
+  text-align: center;
+}
+
 body {
   margin: 0;
   font-family: Arial, sans-serif;
+  /*background-color: #f0f0f0;*/
+  background: -webkit-linear-gradient(rgb(63, 47, 121), rgb(125, 31, 212));
+  height: 100vh;
+  overflow: hidden;
+  color: whitesmoke;
 }
 
+/* Container ocupa toda a altura da tela e distribui os elementos horizontalmente */
 .container {
   display: flex;
-  /* width: 1280px;  Mudar no dia da FECIP */
-  /* height: 720px;  Mudar no dia da FECIP */
-  height: 950px;
+  width: 100vw;
+  height: 100vh;
   margin: 0 auto;
 }
 
-.sidebar-left, .sidebar-right {
+/* Sidebars ocupam 20% da largura cada e altura total */
+.sidebar-left,
+.sidebar-right {
   width: 20%;
   padding: 1rem;
-  background-color: #f0f0f0;
+  /*background-color: #f0f0f0;*/
   box-sizing: border-box;
+  height: 100%;
+
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
 }
 
-.sidebar-left {
-  border-right: 1px solid #ccc;
+/* Área central com o iframe ocupa 60% da largura */
+.main-frame {
+  width: 60%;
+  height: 98%;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.sidebar-right {
-  border-left: 1px solid #ccc;
+/* iframe ocupa toda a área disponível da main-frame */
+iframe {
+  width: 100%;
+  height: 100%;
+  /*border: 1px solid #ccc;
+  margin: 20px;
+  background-color: white;
+  background: transparent;
+  border-radius: 20px;
+  box-sizing: border-box;
+  */
+  border-radius: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+/* Outros estilos mantidos */
 .profile-img {
   width: 100px;
   height: 100px;
@@ -41,25 +83,72 @@ body {
   padding: 0.6rem;
   font-size: 1rem;
   cursor: pointer;
+
+  background-color: rgba(255, 255, 255, 0.13);
+  border-radius: 5px;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 40px rgba(28, 27, 29, 0.199);
+  color: whitesmoke;
+}
+.btnEsquerda:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 50px rgba(28, 27, 29, 0.3);
+  transition: background-color 0.3s, box-shadow 0.3s;
 }
 
-.main-frame {
-  width: 60%;
-  height: 100%;
+/*.btnLogout {
+  position: absolute;
+  bottom: 1rem;
+  width: calc(100% - 2rem);
+  padding: 0.6rem;
+  font-size: 1rem;
+  cursor: pointer;
+
+  background-color: rgba(255, 255, 255, 0.13);
+  border-radius: 5px;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 40px rgba(28, 27, 29, 0.199);
+  color: whitesmoke;
+}*/
+.btnLogout {
+  display: flex;
+  background-color: red;
+  height: 50px;
+  width: 50px;
+  align-items: right;
+  border-radius: 10px;;
+  fill: whitesmoke;
+  display: flex;
+  align-items: center;     /* Centraliza verticalmente */
+  justify-content: center; /* Centraliza horizontalmente */
+}
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24;
+  color: whitesmoke;
+  font-size: 40px !important;
 }
 
-iframe {
-  width: 100%;
-  height: 100%;
-  border: none;
+a {
+  text-decoration: none;
+  color: whitesmoke;
+}
+a:hover {
+  text-decoration: underline;
 }
 
 .music-player {
   margin-top: 2rem;
 }
 
-#player-cover{
+#player-cover {
   height: 300px;
   width: 300px;
   object-fit: cover;
+  border-radius: 15px;
 }

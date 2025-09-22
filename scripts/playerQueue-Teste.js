@@ -1,97 +1,3 @@
-<?php
-include './config.php'; //inclui o arquivo que tem a conexão com o banco de dados
-
-//$id_usuario = isset($_GET['id']) && intval($_GET['id']) > 0 ? intval($_GET['id']) : null;
-
-$id_playlist = isset($_GET['id']) && intval($_GET['id']) > 0 ? intval($_GET['id']) : null;
-
-if ($id_playlist === null) {
-    die("ID de usuário inválido ou não fornecido.");
-}
-
-$stmt = $conn->prepare("SELECT 
-    f.id AS id_faixa,
-    f.nome_musica,
-    a.capa_album,
-    u.id AS id_usuario,
-    u.nome AS nome_usuario,
-    u.email,
-    u.bio,
-    u.foto_perfil,
-    p.id AS id_playlist,
-    p.nome_playlist,
-    p.data_criacao,
-    p.caminho_imagem_playlist
-FROM playlists p
-JOIN playlist_faixas pf ON p.id = pf.id_playlist
-JOIN faixas f ON pf.id_faixa = f.id
-JOIN albuns a ON f.id_album = a.id
-JOIN usuarios u ON p.id_usuario = u.id
-WHERE p.id = ?");
-
-$stmt->bind_param("i", $id_playlist);
-$stmt->execute();
-$result = $stmt->get_result();
-
-$informacoes_playlist = $result->fetch_assoc();
-
-$capaPlaylist = !empty($informacoes_playlist['caminho_imagem_playlist']) ? $informacoes_playlist['caminho_imagem_playlist'] : './uploads/playlist.jpg'; //Se o álbum tiver uma capa definida, use essa capa. Caso contrário, use a imagem padrão ‘padrao.png’.
-$pfp = !empty($informacoes_playlist['foto_perfil']) ? $informacoes_playlist['foto_perfil'] : './uploads/padrao.png';
-
-?>
-
-<html>
-
-<head>
-    <title>Favoritos</title>
-    <link rel="stylesheet" href="./css/playlist.css">
-</head>
-
-<body onload="carregarFaixasPlaylist(<?php echo $id_playlist; ?>)">
-
-    <div class="container">
-        <div class="album-info">
-            <?php echo "<img src='" . $capaPlaylist . "' alt='' class='album-info-img'>"; ?>
-            <div class="texto-info">
-                <h1>Favoritos de <?php echo $informacoes_playlist['nome_usuario']; ?></h1>
-                <p><a href="perfil.php?id=<?php echo $informacoes_playlist['id_usuario']; ?>"><img
-                            src="<?php echo $pfp; ?>"
-                            class="album-info-user-image"><?php echo $informacoes_playlist['nome_usuario']; ?></a></p>
-            </div>
-        </div>
-    </div>
-
-    <div id="faixas-dinamicas" class="faixas-container">
-        <!-- Faixas a serem adicionadas dinâmicamente com a Função "carregarFaixas()" -->
-    </div>
-</body>
-
-<script>
-function carregarFaixasPlaylist(id_playlist) {
-    fetch("./scripts/getFaixasPlaylists.php?id=" + id_playlist)
-        .then(response => response.json())
-        .then(faixas => {
-            const container = document.getElementById("faixas-dinamicas");
-            container.innerHTML = ""; // Limpar a lista antes de adicionar os itens
-
-            faixas.forEach(faixa => {
-                const divFaixas = document.createElement("div"); //criar div
-                divFaixas.className = "faixa-btn"; //define a classe da div
-
-                divFaixas.innerHTML = `
-                        <div class='faixa-info-wrapper' onclick='playMusic(${faixa.id})'>
-                            <img class='play-btn' src='${faixa.capa_album}'>
-                            <h2>${faixa.nome_musica}</h2>
-                        </div>
-                    `;
-                container.appendChild(
-                divFaixas); //adiciona a div dentro do container! (evita dela ser adicionada por fora)
-            });
-        });
-}
-
-
-
 function playMusic(musicId) {
     // Fazer a requisição para obter os dados da música
     fetch(
@@ -149,25 +55,30 @@ function playMusic(musicId) {
             }
         })
         .catch(error => console.error('Erro ao buscar dados: ', error));
+
+        const audio = parent.document.getElementById('player-audio');
+        audio.onended = () => {
+            playNextInQueue();
+        };
 }
 
-function getCookie(nome) {
-    let cookies = document.cookie.split(";");
-
-    for (let i = 0; i < cookies.length; i++) {
-        let c = cookies[i].trim();
-        if (c.startsWith(nome + "=")) {
-            return c.substring((nome + "=").length);
-        }
+function addToQueue(musicId) {
+    if (!musicQueue.includes(musicId)) {
+        musicQueue.push(musicId);
     }
 
-    return null;
+    if (currentIndex === -1) {
+        playNextInQueue();
+    }
 }
-</script>
-</script>
 
-</html>
+function playNextInQueue() {
+    currentIndex++;
 
-<?php
-$conn->close();
-?>
+    if (currentIndex < musicQueue.length) {
+        const nextId = musicQueue[currentIndex];
+        playMusic(nextId);
+    } else {
+        currentIndex = -1;
+    }
+}

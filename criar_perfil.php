@@ -1,9 +1,5 @@
 <?php
-$conn = new mysqli("localhost", "root", "", "fecip");
-
-if ($conn->error){
-    die("Falha na conexão com o banco de dados: " . $conn->error);
-}
+include './config.php'; //inclui o arquivo que tem a conexão com o banco de dados
 
 session_start(); //chama as informações da Session criada no "register.php"
 
@@ -40,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         setcookie("username", $_POST['nome'], time() + (86400 * 7), "/", "", true, true);
         setcookie("user_id", $_SESSION['user_id'], time() + (86400 * 7), "/");
 
-        header("Location: discover.php");
+        header("Location: index.php");
         exit();
     } else {
         die("ERRO AO CRIAR PERFIL: " . $stmt->error);
@@ -50,28 +46,60 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 ?>
 
 <html>
-    <title>
-        Criar Perfil
-    </title>
-    <body>
-        <form action="criar_perfil.php" method="post" enctype="multipart/form-data"> <!-- sem o enctype, o PHP não tem acesso à imagem -->
+
+<head>
+    <title>Criar Perfil</title>
+    <link rel="stylesheet" href="./css/criar-perfil.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1 id="title">Criar Perfil</h1>
+        <hr>
+
+        <form action="criar_perfil.php" method="post" enctype="multipart/form-data">
+            <!-- sem o enctype, o PHP não tem acesso à imagem -->
+            <img id="preview" src="./uploads/padrao.jpg" alt="Prévia da imagem">
+
+
             <label for="imagem_perfil">Foto de Perfil:</label>
-            <input type="file" name="imagem_perfil" id="imagem_perfil" accept="image/*" required><br><br>
-            
+            <input type="file" name="imagem_perfil" id="imagem_perfil" accept="image/*" required
+                class="imagem-perfil"><br><br>
+
             <br>
 
             <label for="nome">Nome (público)</label>
-            <input type="text" name="nome" id="nome">
-            
+            <input type="text" name="nome" id="nome" class="input-form">
+
             <br>
 
             <label for="nome">Biografia</label>
-            <input type="text" name="bio" id="bio" placeholder="conte mais sobre você!">
+            <input type="text" name="bio" id="bio" placeholder="conte mais sobre você!" class="input-form">
 
             <br>
 
             <button type="submit">Terminar</button>
-        </form>    
-    </body>
-</html>
+        </form>
+    </div>
+</body>
 
+<script>
+    document.getElementById('imagem_perfil').addEventListener('change', function(event) {
+    const arquivo = event.target.files[0];
+    const preview = document.getElementById('preview');
+
+    if (arquivo) {
+        const leitor = new FileReader();
+        leitor.onload = function(e) {
+            preview.src = e.target.result;
+            preview.style.display = 'block';
+        };
+        leitor.readAsDataURL(arquivo);
+    } else {
+        preview.src = '#';
+        preview.style.display = 'none';
+    }
+});
+</script>
+
+</html>

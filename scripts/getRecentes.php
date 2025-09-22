@@ -1,10 +1,5 @@
 <?php
-// Conectar ao banco de dados
-$conn = new mysqli('localhost', 'root', '', 'fecip');
-
-if ($conn->connect_error) { //verifica se a conexão vai retornar um erro...
-    die("Erro ao conectar ao banco de dados: " . $conn->connect_error); //então mata (die) a conexão e aponta o erro.
-}
+include "../config.php"; //inclui o arquivo que tem a conexão com o banco de dados
 
 // Verificar se o cookie "recentes" existe
 if (isset($_COOKIE['recentes'])) { //se o cookie "recentes" já está definido (isset)...

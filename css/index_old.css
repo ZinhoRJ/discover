@@ -1,0 +1,69 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+}
+
+.container {
+  display: flex;
+  /* width: 1280px;  Mudar no dia da FECIP */
+  /* height: 720px;  Mudar no dia da FECIP */
+  height: 950px;
+  margin: 0 auto;
+}
+
+.sidebar-left, .sidebar-right {
+  width: 20%;
+  padding: 1rem;
+  background-color: #f0f0f0;
+  box-sizing: border-box;
+}
+
+/*.sidebar-left {
+  border-right: 1px solid #ccc;
+}
+
+.sidebar-right {
+  border-left: 1px solid #ccc;
+}*/
+
+.profile-img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+}
+
+.btnEsquerda {
+  display: block;
+  width: 100%;
+  margin-bottom: 0.5rem;
+  padding: 0.6rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.main-frame {
+  width: 60%;
+  height: 100%;
+}
+
+iframe {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #ccc;
+  padding: 20px;
+  background-color: white;
+  border-radius: 40px;
+}
+
+.music-player {
+  margin-top: 2rem;
+}
+
+#player-cover{
+  height: 300px;
+  width: 300px;
+  object-fit: cover;
+}

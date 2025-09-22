@@ -1,0 +1,139 @@
+/*body {
+    background: -webkit-linear-gradient(rgb(75, 0, 145), rgb(0, 149, 160));
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: #ffffff;
+}*/
+body {
+    color: #ffffff;
+}
+
+.container {
+    width: 90%;
+    padding: 40px;
+    margin: auto;
+}
+
+.div-perfil {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 50px 35px;
+}
+.info-perfil {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    
+
+    flex-direction: column;
+}
+
+h1 {
+    margin: 0px;
+}
+
+.imagem-perfil {
+    border-radius: 100%;
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+button {
+    margin-top: 50px;
+    width: 100%;
+    background-color: #ffffff;
+    color: #080710;
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.container-albuns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    
+}
+.albuns {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 150px;
+    cursor: pointer;
+    text-align: center;
+}
+.albuns img {
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+    object-fit: cover;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.albuns img:hover {
+    transform: scale(1.01);
+    transition: transform 0.3s;
+}
+
+
+.container-playlists {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 40px;
+}
+.playlists {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 150px;
+    cursor: pointer;
+    text-align: center;
+}
+.playlists img {
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+    object-fit: cover;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.playlists img:hover {
+    transform: scale(1.01);
+    transition: transform 0.3s;
+}
+
+.nova-playlist-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /*padding: 50px 35px;*/
+    width: 149px;
+    height: 149px;
+
+    font-size: xx-large;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+a:hover {
+    text-decoration: underline;
+}

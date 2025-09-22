@@ -6,11 +6,7 @@ if (!isset($_COOKIE['username']) && !isset($_COOKIE['user_id'])) { //caso os coo
 }
 
 // Conectar ao banco de dados
-$conn = new mysqli("localhost", "root", "", "fecip");
-
-if ($conn->connect_error) {
-    die("Erro ao conectar ao banco de dados: " . $conn->connect_error);
-}
+include './config.php'; //inclui o arquivo que tem a conexão com o banco de dados
 
 // Diretório onde os arquivos de áudio serão salvos
 $diretorioDestino = 'uploads/';
@@ -66,9 +62,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     echo "✅ Álbum e faixas enviados com sucesso!";
 }
 ?>
-
-
-
 
 
 <!-- HTML -->

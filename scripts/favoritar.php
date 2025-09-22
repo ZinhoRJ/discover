@@ -1,10 +1,6 @@
 <?php
 session_start();
-$conn = new mysqli("localhost", "root", "", "fecip");
-
-if ($conn->connect_error) {
-    die("Erro na conexão: " . $conn->connect_error);
-}
+include "../config.php"; //inclui o arquivo que tem a conexão com o banco de dados
 
 if (isset($_COOKIE["user_id"])){
     $id_usuario = intval($_COOKIE["user_id"]);
@@ -21,7 +17,7 @@ if ($row = $result->fetch_assoc()) {
     $id_playlist = $row['id'];
 } else {
     // Cria playlist "Favoritos"
-    $stmt = $conn->prepare("INSERT INTO playlists (nome_playlist, id_usuario) VALUES ('Favoritos', ?)");
+    $stmt = $conn->prepare("INSERT INTO playlists (nome_playlist, id_usuario, caminho_imagem_playlist) VALUES ('Favoritos', ?, './uploads/playlist.jpg')");
     $stmt->bind_param("i", $id_usuario);
     $stmt->execute();
     $id_playlist = $stmt->insert_id;

@@ -1,10 +1,5 @@
-<!-- CONFIGURAÇÃO INICIAL DO BANCO DE DADOS -->
 <?php
-// Conectar ao banco de dados
-$conn = new mysqli('localhost', 'root', '', 'fecip');
-if ($conn->connect_error) {
-    die("Erro ao conectar ao banco de dados: " . $conn->connect_error);
-}
+include './config.php'; //inclui o arquivo que tem a conexão com o banco de dados
 
 // Consultar as músicas no banco de dados (MAIS SIMPLES)
 //$result = $conn->query("SELECT * FROM albuns"); <-- FOI REJEITADA
@@ -16,7 +11,7 @@ $resultAlbuns = $conn->query($sqlAlbuns);
 $sqlArtistas = "SELECT * FROM usuarios ORDER BY id ASC";
 $resultArtistas = $conn->query($sqlArtistas);
 
-$sqlPlaylists = "SELECT playlists.id, playlists.nome_playlist, usuarios.nome AS nome_usuario
+$sqlPlaylists = "SELECT playlists.id, playlists.nome_playlist, playlists.caminho_imagem_playlist, usuarios.nome AS nome_usuario
     FROM playlists
     JOIN usuarios ON playlists.id_usuario = usuarios.id";
 $resultPlaylists = $conn->query($sqlPlaylists);
@@ -35,10 +30,9 @@ $resultPlaylists = $conn->query($sqlPlaylists);
 </head>
 
 <body>
-    <!-- <?php //include './includes/header.php'; ?> Incluir Header do Arquivo Separado -->
+    <?php include './includes/banner.php'; ?> <!-- Inclui o banner -->
 
-    <h1>Lista de Músicas</h1>
-
+    <h2>Lançadas Recentemente</h2>
     <div class="music-list">
         <?php
         while ($row = $resultAlbuns->fetch_assoc()) {
@@ -55,7 +49,6 @@ $resultPlaylists = $conn->query($sqlPlaylists);
         }
         ?>
     </div>
-
 
     <!-- Recentes 
     <h2>Recentes</h2>
@@ -86,7 +79,7 @@ $resultPlaylists = $conn->query($sqlPlaylists);
     </div>-->
 
     <!-- Usuários -->
-    <h1>Usuários</h1>
+    <h2>Usuários</h2>
     <div class="music-list" id="users">
         <?php
         while ($row = $resultArtistas->fetch_assoc()) {
@@ -102,17 +95,17 @@ $resultPlaylists = $conn->query($sqlPlaylists);
         ?>
     </div>
 
-    <h1>Playlists</h1>
-
+    <h2>Playlists</h2>
     <div class="music-list">
         <?php
         while ($row = $resultPlaylists->fetch_assoc()) {
             $playlist = htmlspecialchars($row['nome_playlist']);
             $usuario = htmlspecialchars($row['nome_usuario']);
             $idPlaylist = htmlspecialchars($row['id']);
+            $capaPlaylist = htmlspecialchars($row['caminho_imagem_playlist']);
             
             echo "<div class='music-item'>
-                    <img src='./uploads/padrao.jpg' alt='Capa do Álbum'>
+                    <img src='" . $capaPlaylist . "' alt='Capa do Álbum'>
                     <a href='playlist.php?id=" . $idPlaylist . "'> <h3>" . $playlist . "</h3> </a>
                     <p>" . $usuario . "</p>
                 </div>";

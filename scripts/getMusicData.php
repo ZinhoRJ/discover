@@ -1,8 +1,5 @@
 <?php
-$conn = new mysqli('localhost', 'root', '', 'fecip');
-if ($conn->connect_error) {
-    die("Erro ao conectar ao banco de dados: " . $conn->connect_error);
-}
+include "../config.php"; //inclui o arquivo que tem a conexão com o banco de dados
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];

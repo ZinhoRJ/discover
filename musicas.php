@@ -19,11 +19,7 @@
 </html>
 
 <?php
-    $conn = new mysqli("localhost", "root", "", "fecip");
-    
-    if($conn -> connect_error) {
-        die("Erro ao se conectar ao banco de dados: ". $conn->connect_error);
-    }
+    include './config.php'; //inclui o arquivo que tem a conexão com o banco de dados
 
     $musicas_sql = "SELECT * FROM musicas";
     $musicas_resultado = $conn -> query ($musicas_sql);
